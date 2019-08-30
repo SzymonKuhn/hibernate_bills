@@ -16,7 +16,8 @@ public class EntityDao {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
 
-            session.saveOrUpdate(entity);
+            session.update(entity);
+//            session.saveOrUpdate(entity);
 
             transaction.commit();
         } catch (HibernateException he) {
@@ -51,7 +52,10 @@ public class EntityDao {
 
     public <T extends EntityInterface> Optional<T> getEntityById (Class<T> classT, long id) {
         SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        return Optional.ofNullable(session.get(classT, id));
+        Optional<T> optionalT;
+        try (Session session = sessionFactory.openSession()) {
+             optionalT = Optional.ofNullable(session.get(classT, id));
+        }
+        return optionalT;
     }
 }
