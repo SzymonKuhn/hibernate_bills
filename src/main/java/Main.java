@@ -18,24 +18,34 @@ public class Main {
             System.out.println("3 -> wypisz fakturę po id");
             System.out.println("4 -> dodaj produkt do faktury");
             System.out.println("5 -> opłać fakturę");
+            System.out.println("6 -> wypisz sumę z faktury");
+            System.out.println("7 -> wypisz produkty z faktury");
+            System.out.println("8 -> wypisz wszystkie produkty");
+            System.out.println("9 -> wypisz rachunki nieopłacone");
+            System.out.println("10 -> wypisz rachunki z ostatniego dnia");
+            System.out.println("11 -> wypisz sumę z rachunków z obecnego dnia");
+            System.out.println("0 -> koniec");
 
             command = scanner.nextLine();
 
-            if (command.equalsIgnoreCase("1")) {
+            if (command.equalsIgnoreCase("1")) { //wypisz faktury
                 entityDao.getAll(Invoice.class).forEach(System.out::println);
-            } else if  (command.equalsIgnoreCase("2")) {
+
+            } else if  (command.equalsIgnoreCase("2")) { //dodaj fakturę
                 Invoice invoice = new Invoice();
                 System.out.println("wpisz nazwę klienta");
                 invoice.setClientName(scanner.nextLine());
                 invoice.setDateTimeCreated(LocalDateTime.now());
                 System.out.println("dodano fakturę? " + entityDao.insertOrUpdate(invoice));
-            } else if (command.equalsIgnoreCase("3")) {
+
+            } else if (command.equalsIgnoreCase("3")) { //wypisz fakturę po id
                 Invoice invoice = getInvoiceFromDbById();
                 System.out.println(invoice);
-            } else if (command.equalsIgnoreCase("4")) {
+
+            } else if (command.equalsIgnoreCase("4")) { //dodaj produkt do faktury
                 Invoice invoice = getInvoiceFromDbById();
                 if (invoice.isPaid()){
-                    System.out.println("Faktura jest opłacona, nie można dodać produktu");
+                    System.out.println("Faktura jest już opłacona, nie można dodać produktu");
                     continue;
                 }
                 System.out.println("Dodajesz produkty do faktury: " + invoice);
@@ -48,7 +58,7 @@ public class Main {
                     again = scanner.nextLine();
                 } while (again.equalsIgnoreCase("tak"));
 
-            } else if (command.equalsIgnoreCase("5")) {
+            } else if (command.equalsIgnoreCase("5")) { //opłać fakturę
                 Invoice invoice = getInvoiceFromDbById();
                 if (!invoice.isPaid()) {
                     invoice.setPaid(true);
@@ -56,11 +66,29 @@ public class Main {
 //                    System.out.println(invoice);
                     entityDao.insertOrUpdate(invoice);
                 } else {
-                    System.out.println("Faktura jest opłacona");
+                    System.out.println("Faktura została opłacona");
                 }
+
+            } else if (command.equalsIgnoreCase("6")) { //wypisz sumę z faktury
+                Invoice invoice = getInvoiceFromDbById();
+                System.out.println("suma z faktury o id = " + invoice.getId() + " wynosi: " + invoice.getSum());
+
+            } else if (command.equalsIgnoreCase("7")) { //wypsiz produkty z faktury
+                Invoice invoice = getInvoiceFromDbById();
+                invoice.getProducts().forEach(System.out::println);
+
+            } else if (command.equalsIgnoreCase("8")) { //wypisz wszystkie produkty
+                entityDao.getAll(Product.class).forEach(System.out::println);
+
+            } else if (command.equalsIgnoreCase("9")) { //wypisz rachunki nieopłacone
+                //TODO
+            } else if (command.equalsIgnoreCase("10" )){ // wypisz rachunki z ostatniego dnia
+                //TODO
+            } else if (command.equalsIgnoreCase("11" )){ // wypisz sumę z rachunków z obecnego dnia
+                //TODO
             }
 
-        } while (!command.equalsIgnoreCase("quit"));
+        } while (!command.equalsIgnoreCase("0"));
 
 
 

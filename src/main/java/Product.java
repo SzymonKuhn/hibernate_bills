@@ -28,7 +28,7 @@ public class Product implements EntityInterface {
     private Invoice invoice;
 
 
-    public Product(String name, int amount, double priceNet, double tax, Invoice invoice) {
+    public Product(String name, int amount, double priceNet, double tax, Invoice invoice) { //TODO pułapka przy użyciu innego konstruktora nie wyliczy sumy
         this.name = name;
         this.amount = amount;
         this.priceNet = priceNet;

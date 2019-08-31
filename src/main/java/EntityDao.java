@@ -58,4 +58,22 @@ public class EntityDao {
         }
         return optionalT;
     }
+
+//    public Double getSumById (long id) {
+//        Optional<Invoice> invoiceOptional = getEntityById(Invoice.class, id);
+//        if (invoiceOptional.isPresent()) {
+//            return  invoiceOptional.get().getSum();
+//        } else {
+//            return null;
+//        }
+//    }
+
+    public List<Product> getProductsFromInvoice (long id) {
+        List<Product> products = new ArrayList<>();
+        Optional<Invoice> invoiceOptional = getEntityById(Invoice.class, id);
+        if (invoiceOptional.isPresent()) {
+            products.addAll(invoiceOptional.get().getProducts());
+        }
+        return products;
+    }
 }
