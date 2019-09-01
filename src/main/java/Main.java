@@ -81,20 +81,16 @@ public class Main {
                 entityDao.getAll(Product.class).forEach(System.out::println);
 
             } else if (command.equalsIgnoreCase("9")) { //wypisz rachunki nieopłacone
-                //TODO
+                entityDao.getUnpaidInvoices().forEach(System.out::println);
+
             } else if (command.equalsIgnoreCase("10" )){ // wypisz rachunki z ostatniego dnia
-                //TODO
+                entityDao.getInvoicesFromLastDay().forEach(System.out::println);
+
             } else if (command.equalsIgnoreCase("11" )){ // wypisz sumę z rachunków z obecnego dnia
-                //TODO
+                entityDao.getSumFromTodaysInvoices().forEach(System.out::println);
             }
 
         } while (!command.equalsIgnoreCase("0"));
-
-
-
-
-
-
 
     }
 
