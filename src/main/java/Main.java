@@ -63,7 +63,6 @@ public class Main {
                 if (!invoice.isPaid()) {
                     invoice.setPaid(true);
                     invoice.setDateTimePaid(LocalDateTime.now());
-//                    System.out.println(invoice);
                     entityDao.insertOrUpdate(invoice);
                 } else {
                     System.out.println("Faktura została opłacona");

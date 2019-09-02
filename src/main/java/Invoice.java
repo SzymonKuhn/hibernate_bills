@@ -32,7 +32,7 @@ public class Invoice implements EntityInterface {
     @OneToMany (mappedBy = "invoice", fetch = FetchType.EAGER)
     private List<Product> products;
 
-    @Formula("(SELECT SUM(p.totalGrossPrice) FROM product p WHERE p.invoice_id=id)")
+    @Formula("(SELECT SUM(p.amount*((p.priceNet*p.tax)+(p.priceNet))) FROM product p WHERE p.invoice_id=id)")
     private Double sum;
 
 

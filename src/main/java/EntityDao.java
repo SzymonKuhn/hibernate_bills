@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class EntityDao {
+
     public <T extends EntityInterface> boolean insertOrUpdate(T entity) {
         SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
         Transaction transaction = null;
@@ -76,7 +77,7 @@ public class EntityDao {
 
             query.select(criteriaBuilder.sum(root.get("sum"))).where((criteriaBuilder.between(root.get("dateTimeCreated"), today, tommorow)));
 
-            sumList.addAll(session.createQuery(query).getResultList()); //czy musi być zwracana lista, nie można otzymać samego wyniku???
+            sumList.addAll(session.createQuery(query).getResultList()); //TODO czy musi być zwracana lista, nie można otzymać samego wyniku???
         }
         return sumList;
     }
